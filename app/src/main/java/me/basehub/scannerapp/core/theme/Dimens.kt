@@ -1,4 +1,4 @@
-package me.basehub.scannerapp.theme
+package me.basehub.scannerapp.core.theme
 
 import androidx.compose.ui.unit.dp
 

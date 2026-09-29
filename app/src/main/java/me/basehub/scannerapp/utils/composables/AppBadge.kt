@@ -27,8 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import me.basehub.scannerapp.R
-import me.basehub.scannerapp.theme.ScannerAppTheme
-import me.basehub.scannerapp.theme.Spacing
+import me.basehub.scannerapp.core.theme.ScannerAppTheme
+import me.basehub.scannerapp.core.theme.Spacing
 
 @Composable
 fun AppBadge(

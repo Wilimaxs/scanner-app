@@ -1,4 +1,4 @@
-package me.basehub.scannerapp.theme
+package me.basehub.scannerapp.core.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

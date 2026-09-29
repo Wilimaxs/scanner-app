@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import me.basehub.scannerapp.theme.ScannerAppTheme
-import me.basehub.scannerapp.theme.Spacing
+import me.basehub.scannerapp.core.theme.ScannerAppTheme
+import me.basehub.scannerapp.core.theme.Spacing
 
 enum class SidebarSide {
     Left,
