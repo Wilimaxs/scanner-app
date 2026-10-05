@@ -2,4 +2,5 @@
     <string name="app_name">Scanner App</string>
     <string name="camera_permission_title">Akses kamera diperlukan</string>
     <string name="camera_permission_description">Izinkan akses kamera untuk memindai kode QR dan barcode. Kamu bisa mengaktifkannya melalui pengaturan izin aplikasi.</string>
+    <string name="camera_permission_open_settings">Buka Pengaturan</string>
 </resources>

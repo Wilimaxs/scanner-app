@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -20,9 +21,11 @@ import androidx.compose.ui.unit.dp
 import me.basehub.scannerapp.R
 import me.basehub.scannerapp.core.theme.Spacing
 import me.basehub.scannerapp.utils.composables.AppBadge
+import me.basehub.scannerapp.utils.composables.AppButton
 
 @Composable
 fun CameraPermissionContent(
+    onOpenSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -58,6 +61,15 @@ fun CameraPermissionContent(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
+            )
+            Spacer(modifier = Modifier.height(Spacing.Large))
+            AppButton(
+                text = stringResource(R.string.camera_permission_open_settings),
+                onClick = onOpenSettings,
+                modifier = Modifier
+                    .widthIn(max = 320.dp)
+                    .fillMaxWidth(),
+                leadingIcon = R.drawable.ic_settings,
             )
         }
     }
