@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathFillType
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
@@ -17,7 +17,7 @@ import kotlin.math.min
 @Composable
 fun ScannerOverlay(
     modifier: Modifier = Modifier,
-    scrimColor: Color = Color.Black.copy(alpha = 0.55f),
+    scrimColor: Color = Color.Black.copy(alpha = 0.5f),
     cornerColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
 ) {
     Canvas(modifier = modifier.fillMaxSize()) {
@@ -27,13 +27,26 @@ fun ScannerOverlay(
         val right = left + frameSize
         val bottom = top + frameSize
 
-        // The center stays transparent, leaving the camera preview unobstructed.
-        val scrim = Path().apply {
-            fillType = PathFillType.EvenOdd
-            addRect(Rect(0f, 0f, size.width, size.height))
-            addRect(Rect(left, top, right, bottom))
-        }
-        drawPath(path = scrim, color = scrimColor)
+        // Draw only outside the frame; the center receives no scrim.
+        drawRect(
+            color = scrimColor,
+            size = Size(size.width, top),
+        )
+        drawRect(
+            color = scrimColor,
+            topLeft = Offset(0f, bottom),
+            size = Size(size.width, size.height - bottom),
+        )
+        drawRect(
+            color = scrimColor,
+            topLeft = Offset(0f, top),
+            size = Size(left, frameSize),
+        )
+        drawRect(
+            color = scrimColor,
+            topLeft = Offset(right, top),
+            size = Size(size.width - right, frameSize),
+        )
 
         val cornerLength = min(28.dp.toPx(), frameSize / 4f)
         val corners = Path().apply {
