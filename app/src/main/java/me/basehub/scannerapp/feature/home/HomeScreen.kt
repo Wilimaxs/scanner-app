@@ -39,6 +39,7 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import me.basehub.scannerapp.R
 import me.basehub.scannerapp.core.theme.Spacing
 import me.basehub.scannerapp.feature.home.composable.CameraPermissionContent
+import me.basehub.scannerapp.feature.home.composable.ScannerOverlay
 import me.basehub.scannerapp.utils.composables.AppBadge
 import me.basehub.scannerapp.utils.composables.AppBar
 
@@ -136,6 +137,7 @@ fun HomeScreen(
                         previewView
                     }
                 )
+                ScannerOverlay()
             } else {
                 CameraPermissionContent(
                     onOpenSettings = {
