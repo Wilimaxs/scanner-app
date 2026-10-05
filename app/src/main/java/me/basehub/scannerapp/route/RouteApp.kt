@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import me.basehub.scannerapp.feature.home.HomeScreen
 
 @Composable
 fun AppRoute(
@@ -25,7 +26,9 @@ fun AppRoute(
         modifier = modifier.fillMaxSize(),
     ) {
         composable(AppScreen.HOME.route) {
-            PendingScreen(title = "Scanner")
+            HomeScreen(
+                modifier = Modifier.fillMaxSize(),
+            )
         }
 
         composable(AppScreen.RESULT.route) {

@@ -1,0 +1,45 @@
+<!--
+Font Awesome Free License
+––––––––––––––––––––––––-
+
+Font Awesome Free is free, open source, and GPL friendly. You can use it for
+commercial projects, open source projects, or really almost whatever you want.
+Full Font Awesome Free license: https://fontawesome.com/license/free.
+
+# Icons: CC BY 4.0 License (https://creativecommons.org/licenses/by/4.0/)
+In the Font Awesome Free download, the CC BY 4.0 license applies to all icons
+packaged as SVG and JS file types.
+
+# Fonts: SIL OFL 1.1 License (https://scripts.sil.org/OFL)
+In the Font Awesome Free download, the SIL OFL license applies to all icons
+packaged as web and desktop font files.
+
+# Code: MIT License (https://opensource.org/licenses/MIT)
+In the Font Awesome Free download, the MIT license applies to all non-font and
+non-icon files.
+
+# Attribution
+Attribution is required by MIT, SIL OFL, and CC BY licenses. Downloaded Font
+Awesome Free files already contain embedded comments with sufficient
+attribution, so you shouldn't need to do anything additional when using these
+files normally.
+
+We've kept attribution comments terse, so we ask that you do not actively work
+to remove them from files, especially code. They're a great way for folks to
+learn about Font Awesome.
+
+# Brand Icons
+All brand icons are trademarks of their respective owners. The use of these
+trademarks does not indicate endorsement of the trademark holder by Font
+Awesome, nor vice versa. **Please do not use brand logos for any purpose except
+to represent the company, product, or service to which they refer.**
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="576"
+    android:viewportHeight="512">
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M480,416v16c0,26.51 -21.49,48 -48,48H48c-26.51,0 -48,-21.49 -48,-48V176c0,-26.51 21.49,-48 48,-48h16v48H54a6,6 0 0,0 -6,6v244a6,6 0 0,0 6,6h372a6,6 0 0,0 6,-6v-10h48Zm42,-336H150a6,6 0 0,0 -6,6v244a6,6 0 0,0 6,6h372a6,6 0 0,0 6,-6V86a6,6 0 0,0 -6,-6Zm6,-48c26.51,0 48,21.49 48,48v256c0,26.51 -21.49,48 -48,48H144c-26.51,0 -48,-21.49 -48,-48V80c0,-26.51 21.49,-48 48,-48h384ZM264,144c0,22.091 -17.909,40 -40,40s-40,-17.909 -40,-40s17.909,-40 40,-40s40,17.909 40,40Zm-72,96l39.515,-39.515c4.686,-4.686 12.284,-4.686 16.971,0L288,240l103.515,-103.515c4.686,-4.686 12.284,-4.686 16.971,0L480,208v80H192v-48Z" />
+</vector>

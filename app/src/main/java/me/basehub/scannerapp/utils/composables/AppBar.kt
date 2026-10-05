@@ -84,6 +84,7 @@ private fun AppBarPreview() {
         AppBar(
             title = "Result Scan",
             onBackClick = {},
+            centerTitle = true
         )
     }
 }
