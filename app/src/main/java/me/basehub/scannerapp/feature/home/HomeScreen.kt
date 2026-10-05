@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
@@ -45,6 +46,7 @@ import me.basehub.scannerapp.feature.home.composable.CameraPermissionContent
 import me.basehub.scannerapp.feature.home.composable.FlashlightButton
 import me.basehub.scannerapp.feature.home.composable.MenuSidebarContent
 import me.basehub.scannerapp.feature.home.composable.ScannerOverlay
+import me.basehub.scannerapp.feature.home.composable.SettingsSidebarContent
 import me.basehub.scannerapp.utils.composables.AppBadge
 import me.basehub.scannerapp.utils.composables.AppBar
 import me.basehub.scannerapp.utils.composables.AppSidebar
@@ -63,6 +65,14 @@ fun HomeScreen(
 
     var camera by remember { mutableStateOf<Camera?>(null) }
     val snackbarHostState = remember { SnackbarHostState() }
+    val settingsErrorMessage = stringResource(R.string.settings_error)
+
+    LaunchedEffect(uiState.settingsError) {
+        if (uiState.settingsError) {
+            snackbarHostState.showSnackbar(settingsErrorMessage)
+            viewModel.clearSettingsError()
+        }
+    }
 
     // Read the actual permission whenever the screen becomes active.
     LifecycleResumeEffect(Unit) {
@@ -117,7 +127,7 @@ fun HomeScreen(
                     AppBadge(
                         icon = painterResource(R.drawable.ic_settings),
                         contentDescription = "Settings menu",
-                        onClick = { /* aksi tombol flashlight */ }
+                        onClick = { viewModel.setSettingsOpen(true) }
                     )
                 },
                 containerColor = Color.Transparent,
@@ -211,6 +221,22 @@ fun HomeScreen(
                     viewModel.setMenuOpen(false)
                     onPrivacyPolicyClick()
                 },
+            )
+        }
+    }
+
+    if (uiState.isSettingsOpen) {
+        AppSidebar(
+            side = SidebarSide.Right,
+            onDismiss = { viewModel.setSettingsOpen(false) },
+        ) {
+            SettingsSidebarContent(
+                vibrateOnScan = uiState.vibrateOnScan,
+                soundOnScan = uiState.soundOnScan,
+                preferredBrowserPackage = uiState.preferredBrowserPackage,
+                onVibrateChanged = viewModel::setVibrateOnScan,
+                onSoundChanged = viewModel::setSoundOnScan,
+                onBrowserChanged = viewModel::setPreferredBrowser,
             )
         }
     }

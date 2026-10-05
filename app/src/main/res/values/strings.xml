@@ -17,4 +17,17 @@
     <string name="flashlight_unavailable">Kamera perangkat ini tidak memiliki senter.</string>
     <string name="flashlight_failed">Tidak dapat mengubah senter. Coba lagi.</string>
     <string name="flashlight_camera_not_ready">Pastikan izin kamera aktif dan kamera sudah siap.</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_scanner_section">SCANNER</string>
+    <string name="settings_vibrate_title">Vibrate on scan</string>
+    <string name="settings_vibrate_description">Vibrate when a QR code is detected</string>
+    <string name="settings_sound_title">Sound on scan</string>
+    <string name="settings_sound_description">Play a sound when a QR code is detected</string>
+    <string name="settings_links_section">LINKS</string>
+    <string name="settings_open_links_title">Open links with</string>
+    <string name="settings_open_links_description">Choose which browser opens scanned links</string>
+    <string name="settings_ask_every_time">Ask every time</string>
+    <string name="settings_browser_unavailable">Browser unavailable</string>
+    <string name="settings_close">Close</string>
+    <string name="settings_error">Tidak dapat membaca atau menyimpan pengaturan. Coba lagi.</string>
 </resources>

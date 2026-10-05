@@ -5,4 +5,9 @@ data class HomeUiState(
     val permissionRequested: Boolean = false,
     val isFlashlightOn: Boolean = false,
     val isMenuOpen: Boolean = false,
+    val isSettingsOpen: Boolean = false,
+    val vibrateOnScan: Boolean = true,
+    val soundOnScan: Boolean = false,
+    val preferredBrowserPackage: String = "",
+    val settingsError: Boolean = false,
 )
