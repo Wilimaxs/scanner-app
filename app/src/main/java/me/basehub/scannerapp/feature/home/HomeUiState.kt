@@ -1,5 +1,7 @@
 package me.basehub.scannerapp.feature.home
 
 data class HomeUiState(
-    val hasCameraPermission: Boolean = false
+    val hasCameraPermission: Boolean = false,
+    val permissionRequested: Boolean = false,
+    val isFlashlightOn: Boolean = false,
 )

@@ -8,6 +8,7 @@ import android.net.Uri
 import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -19,12 +20,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,9 +38,11 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import me.basehub.scannerapp.R
 import me.basehub.scannerapp.core.theme.Spacing
 import me.basehub.scannerapp.feature.home.composable.CameraPermissionContent
+import me.basehub.scannerapp.feature.home.composable.FlashlightButton
 import me.basehub.scannerapp.feature.home.composable.ScannerOverlay
 import me.basehub.scannerapp.utils.composables.AppBadge
 import me.basehub.scannerapp.utils.composables.AppBar
@@ -50,35 +54,46 @@ fun HomeScreen(
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
-    var hasPermission by remember { mutableStateOf(false) }
-    var permissionRequested by rememberSaveable { mutableStateOf(false) }
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+
+    var camera by remember { mutableStateOf<Camera?>(null) }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     // Read the actual permission whenever the screen becomes active.
     LifecycleResumeEffect(Unit) {
-        hasPermission = checkCameraPermission(context)
+        viewModel.showCameraPermission(checkCameraPermission(context))
 
-        onPauseOrDispose { }
+        onPauseOrDispose {
+            viewModel.setFlashlightEnabled(false)
+            camera?.let {
+                if (it.cameraInfo.hasFlashUnit()) {
+                    runCatching { it.cameraControl.enableTorch(false) }
+                }
+            }
+        }
     }
 
     // Prepare the permission launcher
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { granted ->
-        hasPermission = granted
+        viewModel.showCameraPermission(granted)
     }
 
     // Ask once after the initial check, without reopening the dialog on resume.
     LaunchedEffect(Unit) {
-        hasPermission = checkCameraPermission(context)
-        if (!permissionRequested) {
-            permissionRequested = true
-            if (!hasPermission) {
+        val granted = checkCameraPermission(context)
+        viewModel.showCameraPermission(granted)
+        if (!viewModel.state.value.permissionRequested) {
+            viewModel.markPermissionRequested()
+            if (!granted) {
                 permissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
     }
     Scaffold(
         modifier = modifier,
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         topBar = {
             AppBar(
                 title = "",
@@ -105,7 +120,7 @@ fun HomeScreen(
         }
     ) { paddingValues ->
         Box {
-            if (hasPermission) {
+            if (uiState.hasCameraPermission) {
                 AndroidView(
                     modifier = Modifier.fillMaxSize(),
                     factory = { context ->
@@ -126,7 +141,7 @@ fun HomeScreen(
 
                                 cameraProvider.unbindAll()
 
-                                cameraProvider.bindToLifecycle(
+                                camera = cameraProvider.bindToLifecycle(
                                     lifecycleOwner,
                                     cameraSelector,
                                     preview
@@ -155,14 +170,17 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = paddingValues.calculateBottomPadding())
+                    .padding(bottom = Spacing.ScreenMargin)
                     .align(Alignment.BottomCenter),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                AppBadge(
-                    icon = painterResource(R.drawable.ic_flashlight),
-                    contentDescription = "Flash",
-                    onClick = { /* aksi tombol flashlight */ }
+                FlashlightButton(
+                    camera = camera,
+                    hasPermission = uiState.hasCameraPermission,
+                    isFlashlightOn = uiState.isFlashlightOn,
+                    onFlashlightChanged = viewModel::setFlashlightEnabled,
+                    snackbarHostState = snackbarHostState,
                 )
                 AppBadge(
                     icon = painterResource(R.drawable.ic_gallery),

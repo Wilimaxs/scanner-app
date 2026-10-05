@@ -3,4 +3,9 @@
     <string name="camera_permission_title">Akses kamera diperlukan</string>
     <string name="camera_permission_description">Izinkan akses kamera untuk memindai kode QR dan barcode. Kamu bisa mengaktifkannya melalui pengaturan izin aplikasi.</string>
     <string name="camera_permission_open_settings">Buka Pengaturan</string>
+    <string name="flashlight_turn_on">Nyalakan senter</string>
+    <string name="flashlight_turn_off">Matikan senter</string>
+    <string name="flashlight_unavailable">Kamera perangkat ini tidak memiliki senter.</string>
+    <string name="flashlight_failed">Tidak dapat mengubah senter. Coba lagi.</string>
+    <string name="flashlight_camera_not_ready">Pastikan izin kamera aktif dan kamera sudah siap.</string>
 </resources>
