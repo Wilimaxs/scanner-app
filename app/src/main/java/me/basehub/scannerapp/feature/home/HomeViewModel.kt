@@ -36,4 +36,8 @@ class HomeViewModel @Inject constructor(
     fun setFlashlightEnabled(enabled: Boolean) {
         _uiState.update { it.copy(isFlashlightOn = enabled) }
     }
+
+    fun setMenuOpen(open: Boolean) {
+        _uiState.update { it.copy(isMenuOpen = open) }
+    }
 }

@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Scanner App</string>
+    <string name="app_description">Fast &amp; Lightweight Utility</string>
+    <string name="menu_qr_scanner">QR Scanner</string>
+    <string name="menu_scan_section">SCAN</string>
+    <string name="menu_other">OTHER</string>
+    <string name="menu_about">About</string>
+    <string name="menu_privacy_policy">Privacy Policy</string>
+    <string name="menu_version">Version %1$s</string>
+    <string name="jetpack_compose_ui">Jetpack Compose UI</string>
+    <string name="qr_scanner_focused_studio">© 2025 QR Scanner Focused Studio</string>
     <string name="camera_permission_title">Akses kamera diperlukan</string>
     <string name="camera_permission_description">Izinkan akses kamera untuk memindai kode QR dan barcode. Kamu bisa mengaktifkannya melalui pengaturan izin aplikasi.</string>
     <string name="camera_permission_open_settings">Buka Pengaturan</string>

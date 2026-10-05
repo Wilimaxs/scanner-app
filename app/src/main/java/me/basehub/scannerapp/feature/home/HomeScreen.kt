@@ -43,14 +43,19 @@ import me.basehub.scannerapp.R
 import me.basehub.scannerapp.core.theme.Spacing
 import me.basehub.scannerapp.feature.home.composable.CameraPermissionContent
 import me.basehub.scannerapp.feature.home.composable.FlashlightButton
+import me.basehub.scannerapp.feature.home.composable.MenuSidebarContent
 import me.basehub.scannerapp.feature.home.composable.ScannerOverlay
 import me.basehub.scannerapp.utils.composables.AppBadge
 import me.basehub.scannerapp.utils.composables.AppBar
+import me.basehub.scannerapp.utils.composables.AppSidebar
+import me.basehub.scannerapp.utils.composables.SidebarSide
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel<HomeViewModel>()
+    viewModel: HomeViewModel = hiltViewModel<HomeViewModel>(),
+    onAboutClick: () -> Unit = {},
+    onPrivacyPolicyClick: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -105,7 +110,7 @@ fun HomeScreen(
                     AppBadge(
                         icon = painterResource(R.drawable.ic_hamburger),
                         contentDescription = "Hamburger menu",
-                        onClick = { /* aksi tombol flashlight */ }
+                        onClick = { viewModel.setMenuOpen(true) }
                     )
                 },
                 actions = {
@@ -188,6 +193,25 @@ fun HomeScreen(
                     onClick = { /* aksi tombol Gallery */ }
                 )
             }
+        }
+    }
+
+    if (uiState.isMenuOpen) {
+        AppSidebar(
+            side = SidebarSide.Left,
+            onDismiss = { viewModel.setMenuOpen(false) },
+        ) {
+            MenuSidebarContent(
+                onScannerClick = { viewModel.setMenuOpen(false) },
+                onAboutClick = {
+                    viewModel.setMenuOpen(false)
+                    onAboutClick()
+                },
+                onPrivacyPolicyClick = {
+                    viewModel.setMenuOpen(false)
+                    onPrivacyPolicyClick()
+                },
+            )
         }
     }
 }

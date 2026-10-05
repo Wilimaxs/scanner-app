@@ -28,6 +28,10 @@ fun AppRoute(
         composable(AppScreen.HOME.route) {
             HomeScreen(
                 modifier = Modifier.fillMaxSize(),
+                onAboutClick = { navController.navigate(AppScreen.ABOUT.route) },
+                onPrivacyPolicyClick = {
+                    navController.navigate(AppScreen.PRIVACY_POLICY.route)
+                },
             )
         }
 
